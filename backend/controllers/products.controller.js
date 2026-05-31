@@ -1,4 +1,4 @@
-import { getDBConnection } from '../db/db.js';
+import { getDBConnection } from '../database/db.js';
 
 export async function getProducts(req, res) {
   try {
@@ -7,5 +7,7 @@ export async function getProducts(req, res) {
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: 'Falha ao buscar produtos', details: err.message });
+  } finally {
+    await db.close();
   }
 }
