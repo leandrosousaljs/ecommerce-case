@@ -2,14 +2,14 @@ import { getDBConnection } from '../database/db.js';
 import { cart } from '../store/cart.store.js';
 
 export async function addToCart(req, res) {
+  const db = await getDBConnection();
+
   try {
     const { productId } = req.body;
 
     if (!productId) {
       return res.status(400).json({ message: 'ID do produto é obrigatório' });
     }
-
-    const db = await getDBConnection();
 
     const product = await db.get('SELECT * FROM products WHERE id = ?', [productId]);
 

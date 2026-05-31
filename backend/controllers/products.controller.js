@@ -1,8 +1,9 @@
 import { getDBConnection } from '../database/db.js';
 
 export async function getProducts(req, res) {
+  const db = await getDBConnection();
+
   try {
-    const db = await getDBConnection();
     const products = await db.all('SELECT * FROM products');
     res.json(products);
   } catch (err) {

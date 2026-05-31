@@ -2,9 +2,9 @@ import { getDBConnection } from '../database/db.js';
 import { cart } from '../store/cart.store.js';
 
 export async function postCheckout(req, res) {
-  try {
-    const db = await getDBConnection();
+  const db = await getDBConnection();
 
+  try {
     if (cart.length === 0) {
       return res.status(400).json({ message: 'Carrinho vazio' });
     }
