@@ -1,6 +1,5 @@
 import { getDBConnection } from '../db/db.js';
-
-let cart = [];
+import { cart } from '../store/cartStore.js';
 
 export async function addToCart(req, res) {
   const { productId } = req.body;

@@ -7,7 +7,7 @@ export async function logTable() {
   const db = await getDBConnection();
 
   try {
-    const products = await db.all('SELECT * FROM products');
+    const products = await db.all('SELECT * FROM order_items');
     console.table(products);
   } catch (err) {
     console.error('Error fetching products:', err.message);

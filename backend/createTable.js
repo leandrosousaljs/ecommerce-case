@@ -7,13 +7,15 @@ async function createTable() {
   const db = await getDBConnection();
 
   await db.exec(`
-  CREATE TABLE IF NOT EXISTS products (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT,
-    price REAL NOT NULL,
-    image_url TEXT
-  )
+    CREATE TABLE IF NOT EXISTS order_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      order_id INTEGER NOT NULL,
+      product_id INTEGER NOT NULL,
+      quantity INTEGER NOT NULL,
+      subtotal REAL NOT NULL,
+      FOREIGN KEY(order_id) REFERENCES orders(id),
+      FOREIGN KEY(product_id) REFERENCES products(id)
+    )
   `);
 
   await db.close();
