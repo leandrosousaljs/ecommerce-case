@@ -1,10 +1,19 @@
 import { getDBConnection } from '../database/db.js';
+import { sendConfirmationEmail } from '../services/nodemailer.services.js';
 import { cart } from '../store/cart.store.js';
 
 export async function postCheckout(req, res) {
   const db = await getDBConnection();
 
   try {
+    const email = req.body.email?.trim();
+
+    if (!email) {
+      return res.status(400).json({
+        message: 'Email é obrigatório',
+      });
+    }
+
     if (cart.length === 0) {
       return res.status(400).json({ message: 'Carrinho vazio' });
     }
@@ -32,11 +41,13 @@ export async function postCheckout(req, res) {
       );
     }
 
-    cart.length = 0;
-
     await db.run('COMMIT');
 
-    res.json({ message: 'Compra finalizada com sucesso', total: total.toFixed(2), orderId });
+    const previewUrl = await sendConfirmationEmail(email, orderId, total.toFixed(2), cart);
+
+    cart.length = 0;
+
+    res.json({ message: 'Compra finalizada com sucesso', total: total.toFixed(2), orderId, emailPreview: previewUrl });
   } catch (err) {
     await db.exec('ROLLBACK');
     res.status(500).json({ error: 'Falha ao finalizar compra', details: err.message });

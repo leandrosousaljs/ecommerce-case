@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import { PORT } from './config/env.js';
 
@@ -7,6 +8,8 @@ import { cartRouter } from './routes/cart.routes.js';
 import { checkoutRouter } from './routes/checkout.routes.js';
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
