@@ -2,7 +2,7 @@ import CartItem from '../components/CartItem';
 import CheckoutForm from '../components/CheckoutForm';
 
 import { getCart } from '../services/api';
-import { ProductCart } from '../types/product.types';
+import { ProductCart } from '../types/types';
 
 const CartPage = async () => {
   const cart: ProductCart[] = await getCart();

@@ -1,23 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ProductCart } from '../types/product.types';
-import { API_URL } from '../services/api';
+
+import { ProductCart } from '../types/types';
+import { updateCart } from '../services/api';
 
 const CartItem = ({ id, name, quantity }: ProductCart) => {
   const router = useRouter();
 
   const updateQuantity = async (newQuantity: number) => {
-    await fetch(`${API_URL}/api/carrinho`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        productId: id,
-        quantity: newQuantity,
-      }),
-    });
+    await updateCart(id, newQuantity);
 
     router.refresh();
   };

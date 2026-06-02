@@ -1,6 +1,6 @@
 import ProductCard from './components/ProductCard';
 import { getProducts } from './services/api';
-import { Product } from './types/product.types';
+import { Product } from './types/types';
 
 export default async function Home() {
   const products: Product[] = await getProducts();

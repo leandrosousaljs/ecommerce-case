@@ -1,38 +1,27 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { API_URL } from '../services/api';
-import { useState } from 'react';
+import { CheckoutResponse } from '../types/types';
+import { checkout } from '../services/api';
 
 const CheckoutForm = () => {
   const router = useRouter();
 
-  const [checkoutData, setCheckoutData] = useState(null);
+  const [checkoutData, setCheckoutData] = useState<CheckoutResponse | null>(null);
 
-  const handleCheckout = async (e) => {
+  const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
 
-    const email = formData.get('email');
+    const email = formData.get('email') as string;
 
-    const res = await fetch(`${API_URL}/api/finalizar-compra`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-      }),
-    });
-
-    const data = await res.json();
+    const data = await checkout(email);
 
     setCheckoutData(data);
 
-    if (res.ok) {
-      router.refresh();
-    }
+    router.refresh();
   };
 
   return (

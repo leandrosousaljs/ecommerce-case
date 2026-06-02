@@ -9,3 +9,10 @@ export interface Product {
 export interface ProductCart extends Product {
   quantity: number;
 }
+
+export interface CheckoutResponse {
+  message: string;
+  orderId: number;
+  total: string;
+  emailPreview: string;
+}
