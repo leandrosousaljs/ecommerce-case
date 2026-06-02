@@ -3,46 +3,44 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { CheckoutResponse } from '../types/types';
 import { checkout } from '../services/api';
 
 const CheckoutForm = () => {
   const router = useRouter();
 
-  const [checkoutData, setCheckoutData] = useState<CheckoutResponse | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
 
-    const email = formData.get('email') as string;
+    try {
+      setLoading(true);
 
-    const data = await checkout(email);
+      const formData = new FormData(e.currentTarget);
 
-    setCheckoutData(data);
+      const email = formData.get('email') as string;
 
-    router.refresh();
+      const data = await checkout(email);
+
+      router.push(
+        `/sucesso?orderId=${data.orderId}&total=${data.total}&emailPreview=${encodeURIComponent(data.emailPreview)}`,
+      );
+    } catch (error) {
+      console.error('Erro ao finalizar compra:', error);
+      alert('Erro ao finalizar compra. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleCheckout}>
         <input className="input-email" type="email" name="email" placeholder="Seu email" required />
-        <button className="cart-btn" type="submit">
-          Finalizar compra
+        <button className="cart-btn" type="submit" disabled={loading}>
+          {loading ? 'Finalizando...' : 'Finalizar compra'}
         </button>
       </form>
-
-      {checkoutData && (
-        <div className="mt-4">
-          <h2>{checkoutData.message}</h2>
-          <p>Pedido: #{checkoutData.orderId}</p>
-          <p>Total: {checkoutData.total}</p>
-          <a href={checkoutData.emailPreview} target="_blank" rel="noopener noreferrer">
-            Ver e-mail de confirmação
-          </a>
-        </div>
-      )}
     </>
   );
 };

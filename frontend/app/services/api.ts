@@ -1,29 +1,29 @@
-import { Product } from '../types/types';
+import { Product } from '../types';
 
 export const API_URL = 'http://localhost:8000';
 
 export async function getProducts(): Promise<Product[]> {
-  const response = await fetch(`${API_URL}/api/produtos`);
+  const res = await fetch(`${API_URL}/api/produtos`);
 
-  if (!response.ok) {
+  if (!res.ok) {
     throw new Error('Erro ao buscar produtos');
   }
 
-  return response.json();
+  return res.json();
 }
 
 export async function getCart() {
-  const response = await fetch(`${API_URL}/api/carrinho`);
+  const res = await fetch(`${API_URL}/api/carrinho`);
 
-  if (!response.ok) {
+  if (!res.ok) {
     throw new Error('Erro ao buscar carrinho');
   }
 
-  return response.json();
+  return res.json();
 }
 
 export async function addToCart(productId: string) {
-  await fetch(`${API_URL}/api/carrinho`, {
+  const res = await fetch(`${API_URL}/api/carrinho`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,6 +32,10 @@ export async function addToCart(productId: string) {
       productId,
     }),
   });
+
+  if (!res.ok) {
+    throw new Error('Erro ao adicionar produto ao carrinho');
+  }
 }
 
 export async function updateCart(productId: string, quantity: number) {

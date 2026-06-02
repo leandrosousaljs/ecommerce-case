@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { ProductCart } from '../types/types';
+import { ProductCart } from '../types';
 import { updateCart } from '../services/api';
 
 const CartItem = ({ id, name, quantity }: ProductCart) => {
@@ -15,7 +15,7 @@ const CartItem = ({ id, name, quantity }: ProductCart) => {
   };
 
   return (
-    <li key={id}>
+    <li>
       <p>
         {name} - Qtd: {quantity}
       </p>

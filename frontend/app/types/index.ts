@@ -16,3 +16,11 @@ export interface CheckoutResponse {
   total: string;
   emailPreview: string;
 }
+
+export interface SuccessPageProps {
+  searchParams: Promise<{
+    orderId: string;
+    total: string;
+    emailPreview: string;
+  }>;
+}

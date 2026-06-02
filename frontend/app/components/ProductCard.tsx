@@ -1,7 +1,7 @@
 'use client';
 
 import { addToCart } from '../services/api';
-import { Product } from '../types/types';
+import { Product } from '../types';
 
 const ProductCard = ({ id, name, description, price, image_url }: Product) => {
   return (
