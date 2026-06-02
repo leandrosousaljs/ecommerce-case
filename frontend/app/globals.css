@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-blue: #2563eb;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-roboto);
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@layer components {
+  .header {
+    @apply bg-blue text-white p-4;
+
+    .nav {
+      @apply flex items-center justify-between container mx-auto;
+
+      a:hover {
+        @apply underline;
+      }
+    }
+  }
+
+  #products {
+    @apply container mx-auto py-8;
+
+    .title {
+      @apply text-2xl font-bold text-blue m-4;
+    }
+
+    .products-list {
+      @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6;
+    }
+
+    .products-item {
+      @apply border rounded-lg p-4 shadow-sm mb-2;
+    }
+
+    .products-image {
+      @apply w-full h-48 object-cover rounded-md;
+    }
+
+    .subtitle {
+      @apply text-lg font-semibold;
+    }
+
+    .description {
+      @apply text-gray-600 text-sm mt-2;
+    }
+
+    .price-container {
+      @apply mt-4 flex items-center justify-between;
+
+      .price-text {
+        @apply text-xl font-bold text-blue;
+      }
+
+      .price-btn {
+        @apply bg-blue text-white px-4 py-2 rounded hover:opacity-90;
+      }
+    }
+  }
+
+  .footer {
+    @apply bg-blue text-white py-4 text-center;
+  }
+}
