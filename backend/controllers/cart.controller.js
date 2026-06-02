@@ -73,3 +73,11 @@ export async function updateCart(req, res) {
     res.status(500).json({ error: 'Falha ao atualizar carrinho', details: err.message });
   }
 }
+
+export async function getCart(req, res) {
+  try {
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ error: 'Falha ao obter carrinho', details: err.message });
+  }
+}
