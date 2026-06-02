@@ -27,12 +27,12 @@ body {
     }
   }
 
+  .title {
+    @apply text-2xl font-bold text-blue m-4;
+  }
+
   #products {
     @apply container mx-auto py-8;
-
-    .title {
-      @apply text-2xl font-bold text-blue m-4;
-    }
 
     .products-list {
       @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6;
@@ -62,8 +62,24 @@ body {
       }
 
       .price-btn {
-        @apply bg-blue text-white px-4 py-2 rounded hover:opacity-90;
+        @apply bg-blue text-white px-4 py-2 rounded hover:opacity-90 cursor-pointer;
       }
+    }
+  }
+
+  #cart {
+    @apply container mx-auto py-8;
+
+    .cart-btn {
+      @apply bg-blue text-white px-4 py-2 rounded hover:opacity-90 mr-2 cursor-pointer;
+    }
+
+    .form {
+      @apply mt-4 flex justify-between;
+    }
+
+    .input-email {
+      @apply border rounded px-3 py-2 mr-4;
     }
   }
 
