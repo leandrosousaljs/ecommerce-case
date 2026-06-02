@@ -14,7 +14,7 @@ const CartPage = async () => {
       <section id="cart">
         <h2 className="title">Carrinho</h2>
 
-        <p>Não foi possível carregar o carrinho.</p>
+        <p className="no-products">Não foi possível carregar o carrinho.</p>
       </section>
     );
   }
@@ -24,10 +24,10 @@ const CartPage = async () => {
       <h2 className="title">Carrinho</h2>
 
       {cart.length === 0 ? (
-        <p>Seu carrinho está vazio.</p>
+        <p className="no-api">Seu carrinho está vazio.</p>
       ) : (
         <>
-          <ul>
+          <ul className="space-y-4">
             {cart.map((item) => (
               <CartItem key={item.id} {...item} />
             ))}

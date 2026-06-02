@@ -35,9 +35,9 @@ const CheckoutForm = () => {
 
   return (
     <>
-      <form onSubmit={handleCheckout}>
-        <input className="input-email" type="email" name="email" placeholder="Seu email" required />
-        <button className="cart-btn" type="submit" disabled={loading}>
+      <form onSubmit={handleCheckout} className="checkout-form">
+        <input className="email-input" type="email" name="email" placeholder="Seu email" required />
+        <button className="btn-checkout" type="submit" disabled={loading}>
           {loading ? 'Finalizando...' : 'Finalizar compra'}
         </button>
       </form>

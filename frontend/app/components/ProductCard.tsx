@@ -5,18 +5,18 @@ import { Product } from '../types';
 
 const ProductCard = ({ id, name, description, price, image_url }: Product) => {
   return (
-    <li className="products-item">
-      <img src={image_url} alt={name} className="products-image" />
+    <li className="product-item group">
+      <img src={image_url} alt={name} className="product-img" />
 
-      <div className="mt-4">
-        <h3 className="subtitle">{name}</h3>
+      <div className="product-info">
+        <h3 className="product-name">{name}</h3>
 
-        <p className="description">{description}</p>
+        <p className="product-description">{description}</p>
 
-        <div className="price-container">
+        <div className="product-footer">
           <span className="price-text">R$ {price.toFixed(2)}</span>
 
-          <button className="price-btn" onClick={() => addToCart(id)}>
+          <button className="btn-add-to-cart" onClick={() => addToCart(id)}>
             Adicionar ao carrinho
           </button>
         </div>

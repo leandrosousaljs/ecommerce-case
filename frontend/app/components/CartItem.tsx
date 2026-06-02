@@ -15,17 +15,17 @@ const CartItem = ({ id, name, quantity }: ProductCart) => {
   };
 
   return (
-    <li>
-      <p>
+    <li className="cart-item">
+      <p className="cart-item-name">
         {name} - Qtd: {quantity}
       </p>
-      <button className="cart-btn" onClick={() => updateQuantity(quantity + 1)}>
+      <button className="btn-increase" onClick={() => updateQuantity(quantity + 1)}>
         +
       </button>
-      <button className="cart-btn" onClick={() => updateQuantity(quantity - 1)}>
+      <button className="btn-decrease" onClick={() => updateQuantity(quantity - 1)}>
         -
       </button>
-      <button className="cart-btn" onClick={() => updateQuantity(0)}>
+      <button className="btn-remove" onClick={() => updateQuantity(0)}>
         Remover
       </button>
     </li>

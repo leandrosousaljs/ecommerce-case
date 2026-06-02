@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+
 import './globals.css';
 
 import Footer from './components/Footer';
@@ -21,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${roboto.variable}  h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html lang="pt-BR" className={`${roboto.variable} h-full scroll-smooth antialiased`}>
+      <body className="body">
         <NavBar />
         <main className="flex-1">{children}</main>
         <Footer />
