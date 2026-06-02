@@ -1,9 +1,19 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { addToCart } from '../services/api';
 import { Product } from '../types';
 
 const ProductCard = ({ id, name, description, price, image_url }: Product) => {
+  const router = useRouter();
+
+  const handleAddToCart = async () => {
+    await addToCart(id);
+
+    router.refresh();
+  };
+
   return (
     <li className="product-item group">
       <img src={image_url} alt={name} className="product-img" />
@@ -16,7 +26,7 @@ const ProductCard = ({ id, name, description, price, image_url }: Product) => {
         <div className="product-footer">
           <span className="price-text">R$ {price.toFixed(2)}</span>
 
-          <button className="btn-add-to-cart" onClick={() => addToCart(id)}>
+          <button className="btn-add-to-cart" onClick={handleAddToCart}>
             Adicionar ao carrinho
           </button>
         </div>
