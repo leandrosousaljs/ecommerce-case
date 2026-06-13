@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import type { Response, Request } from 'express';
 
 import { PORT } from './config/env.js';
 
@@ -13,7 +14,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (req, res: Response): void => {
   res.send({ message: 'API running' });
 });
 
@@ -21,13 +22,13 @@ app.use('/api/produtos', productsRouter);
 app.use('/api/carrinho', cartRouter);
 app.use('/api/finalizar-compra', checkoutRouter);
 
-app.use((req, res) => {
+app.use((req, res): void => {
   res.status(404).json({
     error: 'Rota não encontrada',
   });
 });
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: any): void => {
   console.error(err);
 
   if (res.headersSent) {
