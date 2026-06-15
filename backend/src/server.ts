@@ -1,9 +1,11 @@
-import express, { Response, Request, NextFunction } from 'express';
+import express from 'express';
 import cors from 'cors';
+
+import type { Response, Request, NextFunction } from 'express';
 
 import { PORT } from './config/env.js';
 
-// import { productsRouter } from './routes/products.routes.js';
+import { productsRouter } from './routes/products.routes.js';
 // import { cartRouter } from './routes/cart.routes.js';
 // import { checkoutRouter } from './routes/checkout.routes.js';
 
@@ -17,7 +19,7 @@ app.get('/', (req: Request, res: Response): void => {
   res.send({ message: 'API running' });
 });
 
-// app.use('/api/produtos', productsRouter);
+app.use('/api/produtos', productsRouter);
 // app.use('/api/carrinho', cartRouter);
 // app.use('/api/finalizar-compra', checkoutRouter);
 
@@ -34,11 +36,7 @@ app.use((err: unknown, req: Request, res: Response, next: NextFunction): void =>
     return next(err);
   }
 
-  const message = err instanceof Error ? err.message : 'Erro interno do servidor';
-
-  res.status(500).json({
-    error: message,
-  });
+  res.status(500).json({ error: 'Erro interno do servidor' });
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
