@@ -10,8 +10,7 @@ export async function getProducts(req: Request, res: Response): Promise<void> {
     res.json(products);
   } catch (err) {
     console.error(err);
-
-    res.status(500).json({ error: 'Falha ao buscar produtos' });
+    throw new Error('Falha ao buscar produtos');
   } finally {
     await db.close();
   }

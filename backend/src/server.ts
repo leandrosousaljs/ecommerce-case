@@ -6,7 +6,7 @@ import type { Response, Request, NextFunction } from 'express';
 import { PORT } from './config/env.js';
 
 import { productsRouter } from './routes/products.routes.js';
-// import { cartRouter } from './routes/cart.routes.js';
+import { cartRouter } from './routes/cart.routes.js';
 // import { checkoutRouter } from './routes/checkout.routes.js';
 
 const app = express();
@@ -20,7 +20,7 @@ app.get('/', (req: Request, res: Response): void => {
 });
 
 app.use('/api/produtos', productsRouter);
-// app.use('/api/carrinho', cartRouter);
+app.use('/api/carrinho', cartRouter);
 // app.use('/api/finalizar-compra', checkoutRouter);
 
 app.use((req: Request, res: Response): void => {
@@ -31,11 +31,6 @@ app.use((req: Request, res: Response): void => {
 
 app.use((err: unknown, req: Request, res: Response, next: NextFunction): void => {
   console.error(err);
-
-  if (res.headersSent) {
-    return next(err);
-  }
-
   res.status(500).json({ error: 'Erro interno do servidor' });
 });
 
