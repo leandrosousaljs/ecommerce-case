@@ -7,7 +7,7 @@ import { PORT } from './config/env.js';
 
 import { productsRouter } from './routes/products.routes.js';
 import { cartRouter } from './routes/cart.routes.js';
-// import { checkoutRouter } from './routes/checkout.routes.js';
+import { checkoutRouter } from './routes/checkout.routes.js';
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.get('/', (req: Request, res: Response): void => {
 
 app.use('/api/produtos', productsRouter);
 app.use('/api/carrinho', cartRouter);
-// app.use('/api/finalizar-compra', checkoutRouter);
+app.use('/api/finalizar-compra', checkoutRouter);
 
 app.use((req: Request, res: Response): void => {
   res.status(404).json({
