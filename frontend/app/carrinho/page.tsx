@@ -19,6 +19,8 @@ const CartPage = async () => {
     );
   }
 
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   return (
     <section id="cart">
       <h2 className="title">Carrinho</h2>
@@ -33,7 +35,7 @@ const CartPage = async () => {
             ))}
           </ul>
 
-          <CheckoutForm />
+          <CheckoutForm total={total} />
         </>
       )}
     </section>

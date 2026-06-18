@@ -24,3 +24,7 @@ export interface SuccessPageProps {
     emailPreview: string;
   }>;
 }
+
+export type CheckoutFormProps = {
+  total: number;
+};

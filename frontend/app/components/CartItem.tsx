@@ -2,10 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 
-import { ProductCart } from '../types';
+import type { ProductCart } from '../types';
 import { updateCart } from '../services/api';
+import { formatter } from '../utils/formatter';
 
-const CartItem = ({ id, name, quantity }: ProductCart) => {
+const CartItem = ({ id, name, quantity, price }: ProductCart) => {
   const router = useRouter();
 
   const updateQuantity = async (newQuantity: number) => {
@@ -17,7 +18,7 @@ const CartItem = ({ id, name, quantity }: ProductCart) => {
   return (
     <li className="cart-item">
       <p className="cart-item-name">
-        {name} - Qtd: {quantity}
+        {name} - Qtd: {quantity} - Subtotal: {formatter.format(price * quantity)}
       </p>
       <button className="btn-increase" onClick={() => updateQuantity(quantity + 1)}>
         +

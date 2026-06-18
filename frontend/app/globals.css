@@ -119,15 +119,19 @@ body {
   }
 
   .checkout-form {
-    @apply mt-6 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm sm:flex-row sm:items-center;
+    @apply mt-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-4;
   }
 
   .email-input {
-    @apply w-full rounded-full border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30;
+    @apply w-full min-w-0 rounded-full border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30 sm:max-w-[24rem] sm:flex-1;
+  }
+
+  .checkout-total {
+    @apply inline-flex w-full items-center justify-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-3 text-center text-sm font-semibold tracking-wide text-cyan-100 whitespace-nowrap sm:w-auto sm:ml-auto sm:px-6;
   }
 
   .btn-checkout {
-    @apply inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer;
+    @apply inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer whitespace-nowrap;
   }
 
   #success {
