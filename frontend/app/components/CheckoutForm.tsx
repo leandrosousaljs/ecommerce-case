@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { checkout } from '../services/api';
+import { formatter } from '../utils/formatter';
+import type { CheckoutFormProps } from '../types';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ total }: CheckoutFormProps) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -36,7 +38,8 @@ const CheckoutForm = () => {
   return (
     <>
       <form onSubmit={handleCheckout} className="checkout-form">
-        <input className="email-input" type="email" name="email" placeholder="Seu email" required />
+        <input className="email-input" type="email" name="email" placeholder="Insira seu email para finalizar a compra" required />
+        <p className="checkout-total">Total: {formatter.format(total)}</p>
         <button className="btn-checkout" type="submit" disabled={loading}>
           {loading ? 'Finalizando...' : 'Finalizar compra'}
         </button>

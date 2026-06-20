@@ -1,8 +1,10 @@
 import { getDBConnection } from '../database/db.js';
-import { sendConfirmationEmail } from '../services/nodemailer.services.js';
+import { sendConfirmationEmail } from '../services/nodemailer.service.js';
 import { cart } from '../store/cart.store.js';
 
-export async function postCheckout(req, res) {
+import type { Request, Response } from 'express';
+
+export async function postCheckout(req: Request, res: Response): Promise<Response | void> {
   const db = await getDBConnection();
 
   try {
@@ -19,6 +21,7 @@ export async function postCheckout(req, res) {
     }
 
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
     await db.run('BEGIN TRANSACTION');
 
     const result = await db.run('INSERT INTO orders (total, created_at) VALUES (?, ?)', [
@@ -26,7 +29,7 @@ export async function postCheckout(req, res) {
       new Date().toISOString(),
     ]);
 
-    const orderId = result.lastID;
+    const orderId = result.lastID as number;
 
     for (const item of cart) {
       await db.run(
@@ -50,7 +53,8 @@ export async function postCheckout(req, res) {
     res.json({ message: 'Compra finalizada com sucesso', total: total.toFixed(2), orderId, emailPreview: previewUrl });
   } catch (err) {
     await db.exec('ROLLBACK');
-    res.status(500).json({ error: 'Falha ao finalizar compra', details: err.message });
+    console.error(err);
+    throw new Error('Falha ao finalizar compra');
   } finally {
     await db.close();
   }

@@ -1,7 +1,9 @@
 import { getDBConnection } from '../database/db.js';
 import { cart } from '../store/cart.store.js';
 
-export async function addToCart(req, res) {
+import type { Request, Response } from 'express';
+
+export async function addToCart(req: Request, res: Response) {
   const db = await getDBConnection();
 
   try {
@@ -30,16 +32,17 @@ export async function addToCart(req, res) {
 
     res.json({ message: 'Produto adicionado ao carrinho', cart });
   } catch (err) {
-    res.status(500).json({ error: 'Falha ao adicionar produto ao carrinho', details: err.message });
+    console.error(err);
+    throw new Error('Falha ao adicionar produto ao carrinho');
   } finally {
     await db.close();
   }
 }
 
-export async function updateCart(req, res) {
+export async function updateCart(req: Request, res: Response) {
   try {
-    const productId = parseInt(req.body.productId, 10);
-    const quantity = parseInt(req.body.quantity, 10);
+    const { productId } = req.body;
+    const { quantity } = req.body;
 
     if (!productId || quantity === undefined) {
       return res.status(400).json({ message: 'Dados inválidos' });
@@ -70,14 +73,16 @@ export async function updateCart(req, res) {
 
     res.json({ message: 'Carrinho atualizado', cart });
   } catch (err) {
-    res.status(500).json({ error: 'Falha ao atualizar carrinho', details: err.message });
+    console.error(err);
+    throw new Error('Falha ao atualizar carrinho');
   }
 }
 
-export async function getCart(req, res) {
+export async function getCart(req: Request, res: Response) {
   try {
     res.json(cart);
   } catch (err) {
-    res.status(500).json({ error: 'Falha ao obter carrinho', details: err.message });
+    console.error(err);
+    throw new Error('Falha ao buscar carrinho');
   }
 }

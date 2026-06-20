@@ -1,4 +1,6 @@
-export const generateEmailTemplate = (orderId, total, cart) => {
+import { ProductCart } from '../types/index.js';
+
+export const generateEmailTemplate = (orderId: number, total: string, cart: ProductCart[]) => {
   const itemsHtml = cart
     .map(
       (item) => `
